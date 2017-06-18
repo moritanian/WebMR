@@ -1,3 +1,13 @@
-"rules": {
-"linebreak-style": 0,
+{
+  "globals": {
+    "$": false,
+    "THREE": false,
+    "WebVRSetting": true,
+    "winodw": true,
+    "document": true,
+    "WEBVR": true
+  },
+  "rules": {
+    "linebreak-style": 0,
+  }
 }
