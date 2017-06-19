@@ -7,7 +7,7 @@ $(function(){
     far: 3000000
   }
 
-  let camera, scene;
+  let camera, scene, renderer;
   initScene();
 
 

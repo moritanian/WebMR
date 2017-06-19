@@ -106,16 +106,21 @@ gulp.task('styles', () => {
 // to enable ES2015 support remove the line `"only": "gulpfile.babel.js",` in the
 // `.babelrc` file.
 gulp.task('scripts', () =>
-    gulp.src([
+  gulp.src([
       // Note: Since we are not using useref in the scripts build pipeline,
       //       you need to explicitly list your scripts here in the right order
       //       to be correctly concatenated
-      './app/scripts/main.js'
+      'app/scripts/*.js',
+      'app/scripts/three/**/*.js'
       // Other scripts
     ])
+
+      //.pipe(concat('.tmp/script.js'))
       .pipe($.newer('.tmp/scripts'))
       .pipe($.sourcemaps.init())
-      .pipe($.babel())
+      .pipe($.babel({
+        presets: ['es2015']
+      }))
       .pipe($.sourcemaps.write())
       .pipe(gulp.dest('.tmp/scripts'))
       .pipe($.concat('main.min.js'))

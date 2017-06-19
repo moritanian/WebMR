@@ -3,11 +3,15 @@
     "$": false,
     "THREE": false,
     "WebVRSetting": true,
-    "winodw": true,
+    "winodw": false,
     "document": true,
-    "WEBVR": true
+    "WEBVR": true,
+    "WebMR": false,
+    "camera_controller"
   },
+  "indent": ["error", 2],
   "rules": {
     "linebreak-style": 0,
+    "no-unused-vars": 0
   }
 }
