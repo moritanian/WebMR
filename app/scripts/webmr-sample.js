@@ -8,7 +8,7 @@ $(function() {
   };
 
   let camera, scene, renderer;
-  initScene(true);
+  initScene(false);
 
   /**
   * Initialize the scene.

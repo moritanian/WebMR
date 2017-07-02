@@ -10,10 +10,12 @@
 
 var WebMR = (function(){
   let video, camController, videoImage,
-    videoImageContext, videoTexture, cameraPlane;
+    videoImageContext, videoTexture, cameraPlane,
+    videoWidth, videoHeight;
 
   return {
-    getWebcamTexture: function(){
+    getWebcamTexture: function(callback){
+      var tex;
       video = document.createElement('video');
       video.autoplay = 'autoplay';
       camController = new camera_controller(video);
@@ -24,19 +26,39 @@ var WebMR = (function(){
       videoImageContext.fillStyle = '#008800';
       videoImageContext.fillRect(0, 0, videoImage.width, videoImage.height);
 
-      videoTexture = new THREE.Texture(videoImage);
-      videoTexture.minFilter = THREE.LinearFilter;
-      videoTexture.magFilter = THREE.LinearFilter;
+      function _createTexture(){
+        // TODO callbackでできるのでは？？
+        if (video.videoHeight === 0){
+          setTimeout(_createTexture, 100);
+          return;
+        }
 
-      return new THREE.MeshBasicMaterial({map: videoTexture, color: 0xFFFFFF});
+        videoWidth = video.videoWidth;
+        videoHeight = video.videoHeight;
+
+        videoImageContext.fillRect(0, 0, videoWidth, videoHeight);
+        videoImage.width = videoWidth;
+        videoImage.height = videoHeight;
+
+        videoTexture = new THREE.Texture(videoImage);
+        videoTexture.minFilter = THREE.LinearFilter;
+        videoTexture.magFilter = THREE.LinearFilter;
+
+        tex = new THREE.MeshBasicMaterial({map: videoTexture, color: 0xFFFFFF});
+        callback(tex);
+      }
+      _createTexture();
     },
 
-    createCameraPlane: function(size){
-      let tex = WebMR.getWebcamTexture();
-      let geometry = new THREE.PlaneGeometry(size[0], size[1]);
-      let mesh = new THREE.Mesh(geometry, tex);
-      mesh.position.set(0, 0, -11);
-      return mesh;
+    createCameraPlane: function(size, camera){
+      WebMR.getWebcamTexture(function(tex){
+        console.log(size * videoHeight / videoWidth);
+        let geometry = new THREE.PlaneGeometry(size, size * videoHeight / videoWidth);
+        let mesh = new THREE.Mesh(geometry, tex);
+        mesh.position.set(0, 0, -11);
+        camera.add(mesh);
+        cameraPlane = mesh;
+      });
     },
 
     start: function(renderer, camera, scene, container, animate){
@@ -48,8 +70,7 @@ var WebMR = (function(){
         useHeadsetVR: false
       });
 
-      cameraPlane = this.createCameraPlane([10, 10]);
-      camera.add(cameraPlane);
+      this.createCameraPlane(10, camera);
 
       var controls = new THREE.OrbitControls(camera, renderer.domElement);
       // controls.rotateUp(Math.PI / 4);
@@ -92,6 +113,7 @@ var WebMR = (function(){
       });
 
       function resize() {
+
         var width = container.offsetWidth;
         var height = container.offsetHeight;
 
@@ -100,8 +122,7 @@ var WebMR = (function(){
 
         renderer.setSize(width, height);
         camera.remove(cameraPlane);
-        cameraPlane = WebMR.createCameraPlane([10, 20 * height / width]);
-        camera.add(cameraPlane);
+        WebMR.createCameraPlane(15, camera);
         WebVRSetting.effect.setSize(width, height);
       }
 
