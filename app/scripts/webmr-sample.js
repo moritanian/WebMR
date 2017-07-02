@@ -1,16 +1,19 @@
-$(function(){
+$(function() {
 
   // カメラ系
-  const cameraParams ={
+  const cameraParams = {
     fov: 55,
     near: 0.5,
     far: 3000000
-  }
+  };
 
   let camera, scene, renderer;
-  initScene();
+  initScene(true);
 
-
+  /**
+  * Initialize the scene.
+  * @param {bool} antialias exec antialias
+  */
   function initScene(antialias){
     let container = document.createElement( 'div' );
     container.style.position = "absolute";
@@ -20,27 +23,32 @@ $(function(){
     container.style.bottom = "0";
     document.body.appendChild( container );
 
-    renderer = new THREE.WebGLRenderer({antialias: antialias ? true : false});
+    renderer = new THREE.WebGLRenderer({antialias: antialias === true});
     renderer.domElement.style.position = "relative";
     renderer.domElement.style.left = "-4px";
 
     renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize( window.innerWidth, window.innerHeight );
-    //renderer.shadowMap.enabled = true;
-    //renderer.gammaInput = true;
-    //renderer.gammaOutput = true;
+    // renderer.shadowMap.enabled = true;
+    // renderer.gammaInput = true;
+    // renderer.gammaOutput = true;
     container.appendChild( renderer.domElement );
     scene = new THREE.Scene();
 
     // camera
-    camera = new THREE.PerspectiveCamera( cameraParams.fov, window.innerWidth / window.innerHeight, cameraParams.near, cameraParams.far );
-    camera.position.set(0,0,0);
+    camera = new THREE.PerspectiveCamera(
+        cameraParams.fov,
+        window.innerWidth / window.innerHeight,
+        cameraParams.near,
+        cameraParams.far );
+
+    camera.position.set(0, 0, 0);
     scene.add(camera);
 
     // light
     scene.add( new THREE.AmbientLight( 0xaaaaaa ) );
     var light = new THREE.DirectionalLight( 0xffffbb, 1 );
-    light.position.set( - 1, 1, - 1 );
+    light.position.set( -1, 1, -1 );
     scene.add( light );
 
     let group = new THREE.Group();
@@ -52,8 +60,11 @@ $(function(){
       new THREE.IcosahedronGeometry( 0.2, 3 ),
       new THREE.TorusGeometry( 0.2, 0.04, 64, 32 )
     ];
-    for ( var i = 0; i < 40; i ++ ) {
-      var geometry = geometries[ Math.floor( Math.random() * geometries.length ) ];
+    for ( var i = 0; i < 40; i++ ) {
+      var geometry = geometries[
+        Math.floor( Math.random() * geometries.length )
+      ];
+
       var material = new THREE.MeshStandardMaterial( {
         color: Math.random() * 0xffffff,
         roughness: 0.7,
@@ -76,6 +87,9 @@ $(function(){
     WebMR.start(renderer, camera, scene, container, animate);
   }
 
+  /**
+  * animate function.
+  */
   function animate(){
 
   }

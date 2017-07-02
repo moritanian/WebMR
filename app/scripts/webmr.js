@@ -4,14 +4,14 @@
  *
  **/
 
-
-/**************************************************************
+/* *************************************************************
  *  WebMR
- **************************************************************/
-
+ ************************************************************* */
 
 var WebMR = (function(){
-  let video, camController, videoImage, videoImageContext, videoTexture, cameraPlane;
+  let video, camController, videoImage,
+    videoImageContext, videoTexture, cameraPlane;
+
   return {
     getWebcamTexture: function(){
       video = document.createElement('video');
@@ -35,10 +35,9 @@ var WebMR = (function(){
       let tex = WebMR.getWebcamTexture();
       let geometry = new THREE.PlaneGeometry(size[0], size[1]);
       let mesh = new THREE.Mesh(geometry, tex);
-      mesh.position.set(0,0, -11);
+      mesh.position.set(0, 0, -11);
       return mesh;
     },
-
 
     start: function(renderer, camera, scene, container, animate){
 
@@ -53,7 +52,7 @@ var WebMR = (function(){
       camera.add(cameraPlane);
 
       var controls = new THREE.OrbitControls(camera, renderer.domElement);
-      //controls.rotateUp(Math.PI / 4);
+      // controls.rotateUp(Math.PI / 4);
       controls.target.set(
         camera.position.x,
         camera.position.y,
@@ -70,17 +69,23 @@ var WebMR = (function(){
         controls = new THREE.DeviceOrientationControls(camera, true);
         controls.connect();
         controls.update();
-        renderer.domElement.addEventListener('click', () => {setFullScreen();}, false);
+        renderer.domElement.addEventListener('click', () => {
+          setFullScreen();
+        }, false);
 
-        window.removeEventListener('deviceorientation', setOrientationControls, true);
+        window.removeEventListener('deviceorientation',
+          setOrientationControls, true);
       }
 
-      window.addEventListener('deviceorientation', setOrientationControls, true);
+      window.addEventListener('deviceorientation',
+        setOrientationControls, true);
 
       WebVRSetting.startLoop(scene, camera, function(){
-        videoImageContext.drawImage(video, 0, 0, videoImage.width, videoImage.height);
+        videoImageContext.drawImage(video, 0, 0,
+          videoImage.width, videoImage.height);
+
         if (videoTexture) {
-            videoTexture.needsUpdate = true;
+          videoTexture.needsUpdate = true;
         }
         controls.update();
         animate();
@@ -95,91 +100,93 @@ var WebMR = (function(){
 
         renderer.setSize(width, height);
         camera.remove(cameraPlane);
-        cameraPlane = WebMR.createCameraPlane([10, 20*height/width]);
+        cameraPlane = WebMR.createCameraPlane([10, 20 * height / width]);
         camera.add(cameraPlane);
         WebVRSetting.effect.setSize(width, height);
       }
 
       let nop = function(){};
+
       /* screen 系*/
-      function setFullScreen(startFunc, endFunc, failedFunc, lockMode = "landscape"){
+      function setFullScreen(startFunc, endFunc,
+        failedFunc, lockMode = "landscape"){
 
         startFunc = startFunc ? startFunc : nop;
-        endFunc  = endFunc ? endFunc : nop;
+        endFunc = endFunc ? endFunc : nop;
         failedFunc = failedFunc ? failedFunc : nop;
 
-        container.requestFullscreen  = container.requestFullscreen
-          || container.mozRequestFullScreen
-          || container.webkitRequestFullScreen
-          || container.webkitRequestFullscreen
-          || container.msRequestFullscreen;
+        container.requestFullscreen = container.requestFullscreen ||
+          container.mozRequestFullScreen ||
+          container.webkitRequestFullScreen ||
+          container.webkitRequestFullscreen ||
+          container.msRequestFullscreen;
 
         let fullScreenChangeList = [
-                      "fullscreenchange",
-                      "mozfullscreenchange",
-                      "webkitfullscreenchange",
-                      "MSFullscreenchange"
-                      ];
+          "fullscreenchange",
+          "mozfullscreenchange",
+          "webkitfullscreenchange",
+          "MSFullscreenchange"
+        ];
 
-        document.fullscreenEnabled =   document.fullscreenEnabled
-          || document.mozFullScreenEnabled
-          || document.webkitFullscreenEnabled
-          || document.msFullscreenEnabled;
+        document.fullscreenEnabled = document.fullscreenEnabled ||
+          document.mozFullScreenEnabled ||
+          document.webkitFullscreenEnabled ||
+          document.msFullscreenEnabled;
 
-        let fullScreenErrorList =  ["fullscreenerror",
-                      "webkitfullscreenerror",
-                      "mozfullscreenerror",
-                      "MSFullscreenError"]
+        let fullScreenErrorList = [
+          "fullscreenerror",
+          "webkitfullscreenerror",
+          "mozfullscreenerror",
+          "MSFullscreenError"
+        ];
 
         container.requestFullscreen();
-        for(let index in fullScreenChangeList){
-          container.addEventListener(fullScreenChangeList[index], function( event ) {
-            if(document.fullscreenEnabled)
-            {
-              if(lockMode)
-                lockOrientation(lockMode);
-              startFunc();
-            }
-            else
-              endFunc();
 
-          });
+        let changedFuc = function( event ) {
+          if (document.fullscreenEnabled) {
+            if (lockMode)
+              lockOrientation(lockMode);
+            startFunc();
+          } else
+            endFunc();
+        };
 
-          container.addEventListener(fullScreenErrorList[index], function(event){
-            failedFunc();
-          });
+        let errFunc = function(event){
+          failedFunc();
+        };
+
+        for (let index in fullScreenChangeList){
+          container.addEventListener(fullScreenChangeList[index], changedFuc);
+
+          container.addEventListener(fullScreenErrorList[index], errFunc);
         }
-        //setTimeout(resize, 2000);
+        // setTimeout(resize, 2000);
 
       }
 
       function lockOrientation(mode) {
         console.log("lockOrientation");
-           if (screen.orientation.lock) {
-               screen.orientation.lock(mode).catch(function(e) {
+        if (screen.orientation.lock) {
+          screen.orientation.lock(mode).catch(function(e) {
             console.log(e);
           });
-           }
-           else if (screen.lockOrientation) {
-               screen.lockOrientation(mode).catch(function(e) {
+        } else if (screen.lockOrientation) {
+          screen.lockOrientation(mode).catch(function(e) {
             console.log(e);
           });
-           }
-           else if (screen.webkitLockOrientation) {
-               screen.webkitLockOrientation(mode).catch(function(e) {
+        } else if (screen.webkitLockOrientation) {
+          screen.webkitLockOrientation(mode).catch(function(e) {
             console.log(e);
           });
-           }
-           else if (screen.mozLockOrientation) {
-               screen.mozLockOrientation(mode).catch(function(e) {
+        } else if (screen.mozLockOrientation) {
+          screen.mozLockOrientation(mode).catch(function(e) {
             console.log(e);
           });
-           }
-           else if (screen.msLockOrientation) {
-               screen.msLockOrientation(mode).catch(function(e) {
+        } else if (screen.msLockOrientation) {
+          screen.msLockOrientation(mode).catch(function(e) {
             console.log(e);
           });
-           }
+        }
       }
     }
   };

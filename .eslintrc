@@ -1,9 +1,14 @@
 {
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true
+  },
   "globals": {
     "$": false,
     "THREE": false,
     "WebVRSetting": true,
-    "winodw": false,
+    "winodw": true,
     "document": true,
     "WEBVR": true,
     "WebMR": false,
@@ -12,6 +17,14 @@
   "indent": ["error", 2],
   "rules": {
     "linebreak-style": 0,
-    "no-unused-vars": 0
+    "no-unused-vars": 1,
+    "padded-blocks": 0,
+    "space-before-blocks": 0,
+    "quotes": 0,
+    "space-in-parens": 0,
+    "one-var": 0,
+    "guard-for-in": 1,
+    "curly": 0,
+    "space-before-function-paren": 0
   }
 }
