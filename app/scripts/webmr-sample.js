@@ -46,13 +46,100 @@ $(function() {
     scene.add(camera);
 
     // light
-    scene.add( new THREE.AmbientLight( 0xaaaaaa ) );
-    var light = new THREE.DirectionalLight( 0xffffbb, 1 );
+    scene.add( new THREE.AmbientLight( 0x666666 ) );
+    var light = new THREE.DirectionalLight( 0x888888, 1 );
     light.position.set( -1, 1, -1 );
     scene.add( light );
 
     let group = new THREE.Group();
     scene.add( group );
+
+    var onProgress = function ( xhr ) {
+      if ( xhr.lengthComputable ) {
+        var percentComplete = xhr.loaded / xhr.total * 100;
+        console.log( Math.round(percentComplete, 2) + '% downloaded' );
+      }
+    };
+
+    var onError = function ( xhr ) {
+    };
+
+    var xPos = -10.0;
+
+    var onLoad = function(object){
+
+      var mesh = object;
+      mesh.position.y = -3.0;
+      mesh.position.x = 0;
+      mesh.position.z = - 8.0;
+      mesh.scale.multiplyScalar(0.36);
+      //mesh.rotation.y = Math.PI * 0.5;
+      xPos += 10.0;
+
+      //makePhongMaterials ( mesh )
+
+      group.add( mesh );
+
+    }
+
+    var mmdModels = {
+     /* cafe_chan: {
+        modelFile: 'models/cafe_mmd/cafe_chan.pmd'
+      },
+      tea_chan: {
+        modelFile: 'models/tea_mmd/tea_chan.pmd',
+      } ,
+      shachiku_chan: {
+        modelFile: 'models/shachiku_mmd/shachiku_chan.pmd',
+      },*/
+      kizunaai : {
+        modelFile: 'models/kizunaai_mmd/kizunaai.pmx'
+      }
+    }
+
+
+    var loader = new THREE.MMDLoader();
+
+    for (var id in mmdModels){
+      var mmdModel = mmdModels[id];
+
+      if(mmdModel.vmdFiles && mmdMode.vmdFiles.length > 0) {
+
+        loader.load( mmdModel.modelFile, mmdModel.vmdFiles ,onLoad, onProgress, onError );
+
+      } else {
+
+        loader.loadModel( mmdModel.modelFile, onLoad, onProgress, onError );
+
+      }
+    }
+
+    function makePhongMaterials ( mesh ) {
+
+      var materials = mesh.material;
+
+      var array = [];
+
+      for ( var i = 0, il = materials.length; i < il; i ++ ) {
+
+        var m = new THREE.MeshPhongMaterial();
+        m.copy( materials[ i ] );
+        m.needsUpdate = true;
+
+        array.push( m );
+
+      }
+
+      mesh.originalMaterial = materials;
+      mesh.material = array;
+
+      return array;
+
+    }
+
+
+
+
     var geometries = [
       new THREE.BoxGeometry( 0.2, 0.2, 0.2 ),
       new THREE.ConeGeometry( 0.2, 0.2, 64 ),
@@ -60,7 +147,7 @@ $(function() {
       new THREE.IcosahedronGeometry( 0.2, 3 ),
       new THREE.TorusGeometry( 0.2, 0.04, 64, 32 )
     ];
-    for ( var i = 0; i < 40; i++ ) {
+    for ( var i = 0; i < 0; i++ ) {
       var geometry = geometries[
         Math.floor( Math.random() * geometries.length )
       ];
@@ -82,9 +169,9 @@ $(function() {
       object.receiveShadow = true;
       group.add( object );
     }
-        //
 
-    WebMR.start(renderer, camera, scene, container, animate);
+    WebMR.start(renderer, camera, scene, container, animate, WebMR.CAMERA_MODE_DEVICECAM);
+    //WebMR.start(renderer, camera, scene, container, animate, WebMR.CAMERA_MODE_ORIENTATION);
   }
 
   /**
