@@ -37,8 +37,9 @@
     -->
 
     <!-- Material Design icons -->
+    <!--
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
+    -->
 
     <!-- Material Design Lite page styles:
     You can choose other color schemes from the CDN, more info here http://www.getmdl.io/customize/index.html
@@ -47,15 +48,18 @@
     material.blue-orange.min.css
     material.purple-indigo.min.css
     -->
+    <!--
     <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
+    -->
 
     <!-- Your styles -->
     <link rel="stylesheet" href="styles/main.css">
   </head>
   <body>
 
-
+  <!--
     <script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+-->
 
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'></script>
     <script src='https://threejs.org/build/three.js'></script>
@@ -69,14 +73,17 @@
     <script src="https://threejs.org/examples/js/effects/StereoEffect.js"></script>
     <script src="https://threejs.org/examples/js/controls/DeviceOrientationControls.js"></script>
 
+    <script src="https://moritanian.github.io/rtc-world/three/TrackObjectControls.js"></script>
     <script src="https://moritanian.github.io/rtc-world/webrtc/device_cam.js"></script>
 
     <!-- AR.js -->
+    <!--
     <script src="https://jeromeetienne.github.io/AR.js/three.js/build/ar.js"> </script>
+    -->
 
     <!-- jsfeat -->
     <!--<script src="https://moritanian.github.io/rtc-world/jsfeat/screen_flow_control.js"></script> -->
-    <script src=http://localhost/webRTC/jsfeat/screen_flow_control.js></script>
+    <script src="https://moritanian.github.io/rtc-world/jsfeat/screen_flow_control.js"></script>
     <script src="https://moritanian.github.io/rtc-world/jsfeat/profile.js"></script>
     <script src="https://moritanian.github.io/rtc-world/jsfeat/compatibility.js"></script>
     <script src="https://moritanian.github.io/rtc-world/jsfeat/jsfeat-min.js"></script>
@@ -104,5 +111,19 @@
       ga('send', 'pageview');
     </script>
     <!-- Built with love using Web Starter Kit -->
+
+    <div class="character-dialog" id="character-dialog">
+        <div id="character-dialog-back"></div>
+        <div class="characters-container" id="characters-container">
+        </div>
+    </div>
+
+    <div class="footer-buttons">
+        <div id="take-button" class="footer-button">take camera</div>
+        <div id="character-button" class="footer-button">character</div>
+        <div id="reset-button" class="footer-button">R</div>
+        <div id="info-button" class="footer-button" title="info" onclick="window.open('./info.html');">?</div>
+
+    </div>
   </body>
 </html>

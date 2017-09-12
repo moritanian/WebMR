@@ -1,0 +1,28 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+h1 {
+  padding-bottom: 0.3em;
+  font-size: 2em;
+  border-bottom: 1px solid #eaecef;
+}
+
+h2 {
+  margin: 8px 0px;
+}
+h3 {
+  margin: 2px 0px;
+}
+
+.info-element {
+  margin: 20px 10px 0px;
+}
+
+.model-data {
+  padding: 10px 20px 10px;
+}
+
+.info-footer {
+  padding-top: 100px;
+}
