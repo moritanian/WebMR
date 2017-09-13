@@ -8,7 +8,7 @@ $(function() {
   };
 
   let camera, scene, renderer, container;
-  let objectControl, targetObject, group;
+  let objectControl, targetModel, group;
 
   // webVR Enter button
   var webvrEnterButton = document.createElement("button");
@@ -66,11 +66,7 @@ $(function() {
   var characterDialog = document.getElementById("character-dialog");
   characterButton.addEventListener("click", function(){
 
-    if(characterDialog.style.display == "block"){
-      characterDialog.style.display = "none";
-    } else {
-      characterDialog.style.display = "block";
-    }
+    characterDialog.classList.toggle("show");
 
   });
 
@@ -88,6 +84,7 @@ $(function() {
 
       characterElement.classList.add("character-element");
 
+      // <img>
       var imgElement = document.createElement("img");
 
       imgElement.setAttribute("src", model.imageUrl);
@@ -96,18 +93,38 @@ $(function() {
 
       characterElement.appendChild(imgElement);
 
+      // <div> name </div>
+      var nameElement = document.createElement("div");
+
+      nameElement.classList.add("model-name");
+
+      nameElement.innerHTML = model.name;
+
+      characterElement.appendChild(nameElement);
+
       characterElement.addEventListener('click', function(){
 
-        characterDialog.style.display = "none";
+        characterDialog.classList.toggle("show");
 
-        console.log(targetObject);
+        targetModel.mesh.visible = false;
 
-        targetObject.visible = false;
+        if(targetModel.objectControl) {
+
+          targetModel.objectControl.enabled = false;
+
+        }
 
         model.mesh.visible = true;
 
-        targetObject = model.mesh;
+        targetModel = model;
 
+        if(!model.objectControl){
+
+          model.objectControl = new THREE.TrackObjectControls(model.mesh, camera, renderer.domElement);
+
+        } else {
+          model.objectControl.enabled = true;
+        }
       });
 
       charactersContainer.appendChild(characterElement);
@@ -178,7 +195,7 @@ $(function() {
     var onLoad = function(mesh, model){
 
       // 回転中心をずらす
-      mesh.geometry.applyMatrix( new THREE.Matrix4().makeTranslation( 0, - 10.0 , 0) );
+      mesh.geometry.applyMatrix( new THREE.Matrix4().makeTranslation( 0, - 10.0 , 0.5) );
 
       mesh.position.y = 0.0;
       mesh.position.x = 0;
@@ -202,36 +219,42 @@ $(function() {
       if (mesh.visible)
       {
 
-        targetObject = mesh;
+        targetModel = model;
 
-        WebMR.start(renderer, camera, scene, container, animate, WebMR.CAMERA_MODE_DEVICECAM, targetObject);
-
-        objectControl = new THREE.TrackObjectControls(mesh, camera, renderer.domElement);
+        model.objectControl = new THREE.TrackObjectControls(mesh, camera, renderer.domElement);
 
       }
 
     }
 
     var mmdModels = {
-     /*
+        kizunaai : {
+        modelFile: 'models/kizunaai_mmd/kizunaai.pmx',
+        imageUrl: 'https://kizunaai.com/acin/project/wp-content/themes/shapely-child/img/AI.png',
+        name: "kizuna ai",
+        visible: true
+      },
       shachiku_chan: {
         modelFile: 'models/shachiku_mmd/shachiku_chan.pmd',
+        imageUrl: "http://dc.dengeki.com/ss/comicweb/pc/images/sp/vitamn-shachiku/cht_01.png",
+        name: "社畜ちゃん",
+        visible: false
       },
        cafe_chan: {
         modelFile: 'models/cafe_mmd/cafe_chan.pmd',
-        imageUrl: 'http://cafechan.net/images/sec02thumb1off.png'
-      },*/
+        imageUrl: 'http://cafechan.net/images/sec02thumb1off.png',
+        name: "カフェちゃん",
+        visible: false
+
+      },
       tea_chan: {
         modelFile: 'models/tea_mmd/tea_chan.pmd',
         imageUrl: 'http://cafechan.net/images/sec02thumb2off.png',
-        visible: true
-      } ,
-
-      kizunaai : {
-        modelFile: 'models/kizunaai_mmd/kizunaai.pmx',
-        imageUrl: 'https://kizunaai.com/acin/project/wp-content/themes/shapely-child/img/AI.png',
+        name: "ティーちゃん",
         visible: false
       }
+
+
     }
 
 
@@ -337,5 +360,7 @@ $(function() {
   }
 
   initScene(true);
+
+  WebMR.start(renderer, camera, scene, container, animate, WebMR.CAMERA_MODE_DEVICECAM);
 
 });

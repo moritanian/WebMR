@@ -28,9 +28,34 @@ body {
 .character-dialog {
   display: none;
   z-index: 100;
- transition: background-color .55s ease;
-  -webkit-transition: background-color .55s ease;
 }
+
+.character-dialog.show {
+  display: block;
+}
+
+@keyframes show{
+    from{
+      width: 70%;
+      height: 0%;
+    }
+    to{
+      width: 70%;
+      height: 70%;
+    }
+}
+
+@keyframes hide{
+    from{
+      width: 70%;
+      height: 70%;
+    }
+    to{
+      width: 0%;
+      height: 0%;
+    }
+}
+
 
 .characters-container {
   padding: 10px 10px;
@@ -46,23 +71,41 @@ body {
   text-shadow: 0px 0px 3px #ff1414;
   box-shadow: inset 0px 0px 2px 1px #ff142a, 0px 0px 2px 1px rgba(255, 20, 20, 0.77);
   position: absolute;
-  bottom: 10%;
-  left: 10%;
-  top: 10%;
-  right: 10%;
-  z-index: 300;
 
+  margin: auto;
+  overflow: hidden;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 300;
+  width: 70%;
+  height: 70%;
+/*
    transition: background-color .55s ease;
   -webkit-transition: background-color .55s ease;
+*/
+
+}
+
+.character-dialog.show .characters-container {
+  animation: show 0.1s ease-out 0s;
 }
 
 .character-element {
   cursor: pointer;
+  float: left;
+  margin: 10px;
 }
 
 .character-img {
   width: 160px;
   height: 160px;
+}
+
+.model-name {
+  text-align: center;
+  margin: 18px;
 }
 
 #character-dialog-back {

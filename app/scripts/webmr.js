@@ -121,7 +121,7 @@ var WebMR = (function(){
 
   }
 
-  WebMR.start = function(renderer, camera, scene, container, animate, cameraMode, object){
+  WebMR.start = function(renderer, camera, scene, container, animate, cameraMode){
 
     window.addEventListener('resize', resize, false);
 
@@ -129,12 +129,6 @@ var WebMR = (function(){
       useStereoVR: false,
       useHeadsetVR: false
     });
-
-    if(object == null){
-
-      object = camera;
-
-    }
 
     if( cameraMode === WebMR.CAMERA_MODE_DEVICECAM) {
 
