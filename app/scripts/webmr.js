@@ -87,7 +87,7 @@ var WebMR = (function(){
 
         forward.multiplyScalar(20.0);
 
-        forward.add(camera.position)
+        forward.add(camera.position);
 
         //var q = new THREE.Quaternion();
 
@@ -112,14 +112,14 @@ var WebMR = (function(){
     });
 
 
-  }
+  };
 
   WebMR.resizeCameraPlane = function(size, camera) {
 
     cameraPlane.scale.x = size;
     cameraPlane.scale.y = size;
 
-  }
+  };
 
   WebMR.start = function(renderer, camera, scene, container, animate, cameraMode){
 
@@ -220,7 +220,7 @@ var WebMR = (function(){
 
     }
 
-  }
+  };
 
   let nop = function(){};
 
@@ -279,7 +279,7 @@ var WebMR = (function(){
     }
     // setTimeout(resize, 2000);
 
-  }
+  };
 
   WebMR.lockOrientation = function(mode) {
     console.log("lockOrientation");
@@ -304,7 +304,7 @@ var WebMR = (function(){
         console.log(e);
       });
     }
-  }
+  };
 
   /*
     movement is controlled by device camera
@@ -346,7 +346,7 @@ var WebMR = (function(){
 
       this.object.position.set(distVec.x, distVec.y, distVec.z);
 
-    }
+    };
 
     this.connect = function(){
 
@@ -354,7 +354,7 @@ var WebMR = (function(){
 
       this.deviceOrientationControls.connect();
 
-    }
+    };
 
     this.disconnect = function(){
 
@@ -362,7 +362,7 @@ var WebMR = (function(){
 
       this.deviceOrientationControls.disconnect();
 
-    }
+    };
 
     this.reset = function(_target){
 
@@ -370,9 +370,9 @@ var WebMR = (function(){
 
       this.deviceCameraConrols.reset();
 
-    }
+    };
 
-  }
+  };
 
   /*
     control by device camera.
@@ -463,11 +463,11 @@ var WebMR = (function(){
 
       this.screenFlowControl.reset();
 
-    }
+    };
 
     this.connect();
 
-  }
+  };
 
   /**
  * @author richt / http://richt.me
@@ -549,7 +549,7 @@ var WebMR = (function(){
         oldBeta = beta;
 
         oldGamma = gamma;
-      }
+      };
 
     }();
 
@@ -602,7 +602,7 @@ var WebMR = (function(){
 
     this.connect();
 
-  }
+  };
 
   WebMR.resetControls = function()
   {
@@ -613,7 +613,7 @@ var WebMR = (function(){
 
     }
 
-  }
+  };
 
   return WebMR;
 })();

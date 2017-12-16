@@ -9,6 +9,7 @@ $(function() {
 
   let camera, scene, renderer, container;
   let objectControl, targetModel, group;
+  let effectTheme;
 
   // webVR Enter button
   var webvrEnterButton = document.createElement("button");
@@ -39,7 +40,7 @@ $(function() {
     var u_time = Math.floor((d.getTime())/1000);
     var filename = "webmr" + u_time + ".png";
     download(url, filename);
-  };
+  }
 
   function download(objectURL, filename) {
     var a = document.createElement('a');
@@ -53,7 +54,7 @@ $(function() {
     //clickイベントを着火
     e.initEvent("click", true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
     a.dispatchEvent(e);
-  };
+  }
 
   // reset button
   var resetButton = document.getElementById("reset-button");
@@ -129,7 +130,7 @@ $(function() {
 
       charactersContainer.appendChild(characterElement);
 
-    }
+    };
 
   }();
 
@@ -194,13 +195,23 @@ $(function() {
 
     var onLoad = function(mesh, model){
 
-      // 回転中心をずらす
-      mesh.geometry.applyMatrix( new THREE.Matrix4().makeTranslation( 0, - 10.0 , 0.5) );
+      if(mesh.geometry){
+        // 回転中心をずらす
+        mesh.geometry.applyMatrix( new THREE.Matrix4().makeTranslation( 0, - 10.0 , 0.5) );
+      
+      }
+
+      let scale = 0.36;
+
+      if(model.size){
+        scale = model.size;
+      }
+    
 
       mesh.position.y = 0.0;
       mesh.position.x = 0;
       mesh.position.z = 0.0; //- 8.0;
-      mesh.scale.multiplyScalar(0.36);
+      mesh.scale.multiplyScalar(scale);
 
       //mesh.rotation.x = Math.PI * 0.2;
       //mesh.rotation.y = Math.PI * 0.5;
@@ -225,46 +236,34 @@ $(function() {
 
       }
 
-    }
+    };
 
-    var mmdModels = {
-        kizunaai : {
-        modelFile: 'models/kizunaai_mmd/kizunaai.pmx',
-        imageUrl: 'https://kizunaai.com/acin/project/wp-content/themes/shapely-child/img/AI.png',
-        name: "kizuna ai",
-        visible: true
-      },
-      shachiku_chan: {
-        modelFile: 'models/shachiku_mmd/shachiku_chan.pmd',
-        imageUrl: "http://dc.dengeki.com/ss/comicweb/pc/images/sp/vitamn-shachiku/cht_01.png",
-        name: "社畜ちゃん",
-        visible: false
-      },
-       cafe_chan: {
-        modelFile: 'models/cafe_mmd/cafe_chan.pmd',
-        imageUrl: 'http://cafechan.net/images/sec02thumb1off.png',
-        name: "カフェちゃん",
-        visible: false
+    
+    effectTheme = new ChristmasTheme(scene);
 
-      },
-      tea_chan: {
-        modelFile: 'models/tea_mmd/tea_chan.pmd',
-        imageUrl: 'http://cafechan.net/images/sec02thumb2off.png',
-        name: "ティーちゃん",
-        visible: false
-      }
-
-
-    }
-
+    let models = effectTheme.getModels();
 
     var loader = new THREE.MMDLoader();
 
-    for (var id in mmdModels){
+    for (var id in models){
 
-      var mmdModel = mmdModels[id];
+      var model = models[id];
 
-      (function(mmdModel){
+      let modelFile = model.modelFile;
+      let extension = modelFile.split( '.' ).pop().toLowerCase();
+
+      switch(extension){
+        case 'pmd':
+        case 'pmx':
+          loadMMD(model);
+          break;
+
+        case 'obj':
+          loadObj(model);
+
+      }
+
+      function loadMMD(mmdModel){
 
         if(mmdModel.vmdFiles && mmdModel.vmdFiles.length > 0) {
 
@@ -284,12 +283,44 @@ $(function() {
 
         }
 
-        if(mmdModel.imageUrl){
+        if(model.imageUrl){
 
           addCharacterSelectDialog(mmdModel);
 
         }
-      })(mmdModel);
+      }
+
+      function loadObj(model){
+        
+        new THREE.OBJLoader().load( model.modelFile, 
+          // called when resource is loaded
+          function ( object ) {
+
+            onLoad(object, model);
+            
+          },
+          // called when loading is in progresses
+          function ( xhr ) {
+
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+          },
+          // called when loading has errors
+          function ( error ) {
+
+            console.log( 'An error happened' );
+
+          } 
+        );
+
+        if(model.imageUrl){
+
+          addCharacterSelectDialog(mmdModel);
+
+        }
+      }
+
+
     }
 
     function makePhongMaterials ( mesh ) {
@@ -352,6 +383,9 @@ $(function() {
   * animate function.
   */
   function animate(){
+
+    effectTheme.update();
+
     if(objectControl){
 
       //objectControl.update();

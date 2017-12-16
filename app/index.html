@@ -93,11 +93,13 @@
     <script src="https://threejs.org/examples/js/libs/ammo.js"></script>
     <script src="https://threejs.org/examples/js/loaders/TGALoader.js"></script>
     <script src="https://threejs.org/examples/js/loaders/MMDLoader.js"></script>
+    <script src="https://threejs.org/examples/js/loaders/OBJLoader.js"></script>
 
     <!-- build:js scripts/main.min.js -->
     <script src="scripts/main.js"></script>
     <script src='scripts/three/WebVRSetting.js'></script>
     <script src="scripts/webmr.js"></script>
+    <script src="scripts/effect-theme/christmas-theme.js"></script>
     <script src="scripts/webmr-sample.js"></script>
     <!-- endbuild -->
 
@@ -112,6 +114,12 @@
     </script>
     <!-- Built with love using Web Starter Kit -->
 
+    <div class="header">
+        <div class="model-info">tree model from 
+            <a href="https://resources.blogscopia.com/2015/04/15/christmas-tree/"
+                target="_blank">blogscopia </a> </div>
+    </div>
+    
     <div class="character-dialog" id="character-dialog">
         <div id="character-dialog-back"></div>
         <div class="characters-container" id="characters-container">
@@ -119,9 +127,19 @@
     </div>
 
     <div class="footer-buttons">
-        <div id="take-button" class="footer-button">take camera</div>
+        <div id="take-button" 
+            class="camera-icon footer-button">
+            <div class="layer-1 no-1">
+                <div class="layer-2 no-1">
+                    <div class="layer-3 no-1"></div>
+                </div>
+            </div>
+            <div class="layer-1 no-2"></div>
+            <div class="layer-1 no-3"></div>
+
+        </div>
         <div id="character-button" class="footer-button">character</div>
-        <div id="reset-button" class="footer-button">R</div>
+        <div id="reset-button" class="footer-button">Reset</div>
         <div id="info-button" class="footer-button" title="info" onclick="window.open('./info.html');">?</div>
 
     </div>

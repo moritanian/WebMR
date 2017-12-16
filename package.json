@@ -26,7 +26,8 @@
     "psi": "^2.0.4",
     "run-sequence": "^1.0.1",
     "sw-precache": "^3.2.0",
-    "sw-toolbox": "^3.2.1"
+    "sw-toolbox": "^3.2.1",
+    "browserify": "^10.2.1"
   },
   "engines": {
     "node": ">=0.12"

@@ -33,6 +33,8 @@ import swPrecache from 'sw-precache';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import {output as pagespeed} from 'psi';
 import pkg from './package.json';
+import browserify from 'browserify';
+
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
@@ -54,6 +56,12 @@ gulp.task('images', () =>
     })))
     .pipe(gulp.dest('dist/images'))
     .pipe($.size({title: 'images'}))
+);
+
+// Optimize images
+gulp.task('models', () =>
+  gulp.src('app/models/**/*')
+    .pipe(gulp.dest('dist/models'))
 );
 
 // Copy all files at the root level (app)
@@ -106,11 +114,15 @@ gulp.task('styles', () => {
 // to enable ES2015 support remove the line `"only": "gulpfile.babel.js",` in the
 // `.babelrc` file.
 gulp.task('scripts', () =>
+    
+
+    
   gulp.src([
       // Note: Since we are not using useref in the scripts build pipeline,
       //       you need to explicitly list your scripts here in the right order
       //       to be correctly concatenated
       'app/scripts/*.js',
+      'app/scripts/effect-theme/*.js',
       'app/scripts/three/**/*.js'
       // Other scripts
     ])
@@ -131,6 +143,18 @@ gulp.task('scripts', () =>
       .pipe(gulp.dest('dist/scripts'))
       .pipe(gulp.dest('.tmp/scripts'))
 );
+
+gulp.task('browserify', ()=>{
+ browserify([
+    '.tmp/scripts/main.min.js',
+    // Other scripts
+  ], { debug: false })
+  //.transform(babelify)
+  .bundle()
+  .on("error", function (err) { console.log("Error : " + err.message); })
+  .pipe(gulp.dest('./build'));
+  //.pipe(concat('five.min.js'))
+});
 
 // Scan your HTML for assets & optimize them
 gulp.task('html', () => {
@@ -202,7 +226,7 @@ gulp.task('serve:dist', ['default'], () =>
 gulp.task('default', ['clean'], cb =>
   runSequence(
     'styles',
-    ['lint', 'html', 'scripts', 'images', 'copy'],
+    ['lint', 'html', 'scripts', 'images', 'models', 'copy'],
     'generate-service-worker',
     cb
   )
