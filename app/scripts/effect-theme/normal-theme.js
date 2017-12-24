@@ -6,7 +6,7 @@ function NormalTheme(scene){
 				modelFile: 'models/kizunaai_mmd/kizunaai.pmx',
 				imageUrl: 'https://kizunaai.com/acin/project/wp-content/themes/shapely-child/img/AI.png',
 				name: "kizuna ai",
-				visible: false
+				visible: true
 			},
 				shachiku_chan: {
 				modelFile: 'models/shachiku_mmd/shachiku_chan.pmd',
@@ -30,9 +30,13 @@ function NormalTheme(scene){
 	    };
 	};
 
+	 this.getModelInfo = function(){
+        return ``;
+    };
+
 	this.update = function(){
 
-	}
+	};
 }
 
 //export default NormalTheme;

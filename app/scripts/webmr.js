@@ -486,7 +486,11 @@ var WebMR = (function(){
 
     this.enabled = true;
 
-    this.deviceOrientation = {};
+    this.deviceOrientation = {
+      alpha: 0,
+      beta: 90,
+      gamma: 0
+    };
     this.screenOrientation = 0;
 
     this.alpha = 0;

@@ -18,6 +18,12 @@ function ChristmasTheme(scene){
 		};
 	};
 
+    this.getModelInfo = function(){
+        return `tree model from
+            <a href="https://resources.blogscopia.com/2015/04/15/christmas-tree/"
+                target="_blank">blogscopia </a>`;
+    };
+
 	this.init = function(){
 
 		this.texture = THREE.ImageUtils.loadTexture("images/snow_particle.png");
@@ -68,7 +74,7 @@ function ChristmasTheme(scene){
         
         this.pointCloud.geometry.__dirtyVerticies = true;
 
-	}
+	};
 
 	this.init();
 

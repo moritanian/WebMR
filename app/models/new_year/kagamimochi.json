@@ -1,0 +1,325 @@
+{
+	"metadata": {
+		"version": 4.5,
+		"type": "Object",
+		"generator": "Object3D.toJSON"
+	},
+	"geometries": [
+		{
+			"uuid": "73A1B3B8-F3E3-4871-80EA-13B8383EAC44",
+			"type": "SphereBufferGeometry",
+			"radius": 1,
+			"widthSegments": 8,
+			"heightSegments": 6,
+			"phiStart": 0,
+			"phiLength": 6.283185,
+			"thetaStart": 0,
+			"thetaLength": 3.141593
+		},
+		{
+			"uuid": "E6188D89-9C4A-45EE-85E4-8AC73F3C733B",
+			"type": "PlaneBufferGeometry",
+			"width": 1,
+			"height": 1,
+			"widthSegments": 1,
+			"heightSegments": 1
+		},
+		{
+			"uuid": "30878305-8D93-4057-83AB-CB2427D9B171",
+			"type": "PlaneBufferGeometry",
+			"width": 1,
+			"height": 1,
+			"widthSegments": 1,
+			"heightSegments": 1
+		},
+		{
+			"uuid": "7DC180B8-94AF-4B75-97BC-1B8536086308",
+			"type": "CylinderBufferGeometry",
+			"radiusTop": 1,
+			"radiusBottom": 1,
+			"height": 1,
+			"radialSegments": 20,
+			"heightSegments": 1,
+			"openEnded": false
+		},
+		{
+			"uuid": "AB89762A-69AE-4E35-8FD3-6D949A54A32B",
+			"type": "BoxBufferGeometry",
+			"width": 1,
+			"height": 1,
+			"depth": 1,
+			"widthSegments": 1,
+			"heightSegments": 1,
+			"depthSegments": 1
+		},
+		{
+			"uuid": "24B3FB11-0A9E-4F0E-A724-F4EACB3700A5",
+			"type": "BoxBufferGeometry",
+			"width": 1,
+			"height": 1,
+			"depth": 1,
+			"widthSegments": 1,
+			"heightSegments": 1,
+			"depthSegments": 1
+		},
+		{
+			"uuid": "465533EE-B319-48F3-ABB3-A7C142081E28",
+			"type": "SphereBufferGeometry",
+			"radius": 1,
+			"widthSegments": 20,
+			"heightSegments": 20,
+			"phiStart": 0,
+			"phiLength": 6.283185,
+			"thetaStart": 0,
+			"thetaLength": 3.141593
+		},
+		{
+			"uuid": "FD2C7BB7-D1F1-4133-9F63-4F86C006C9B7",
+			"type": "SphereBufferGeometry",
+			"radius": 1,
+			"widthSegments": 50,
+			"heightSegments": 30,
+			"phiStart": 0,
+			"phiLength": 6.283185,
+			"thetaStart": 0,
+			"thetaLength": 3.141593
+		},
+		{
+			"uuid": "1B531DA4-0415-4B71-9C69-593F205053BC",
+			"type": "SphereBufferGeometry",
+			"radius": 1,
+			"widthSegments": 50,
+			"heightSegments": 12,
+			"phiStart": 0,
+			"phiLength": 6.283185,
+			"thetaStart": 0,
+			"thetaLength": 3.141593
+		}],
+	"materials": [
+		{
+			"uuid": "B2C42908-5BFC-409C-A2AC-3A9E64153694",
+			"type": "MeshStandardMaterial",
+			"color": 16777215,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 4697636,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true
+		},
+		{
+			"uuid": "E2110D11-08AA-4340-B0F2-1A177B1F2A94",
+			"type": "MeshStandardMaterial",
+			"color": 16777215,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 16777215,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true
+		},
+		{
+			"uuid": "BEF1DCB1-621A-4EF6-9944-842699FF62F6",
+			"type": "MeshStandardMaterial",
+			"color": 16777215,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 12977408,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true
+		},
+		{
+			"uuid": "EF47E495-25B1-4A55-BABB-6D76C8316040",
+			"type": "MeshStandardMaterial",
+			"color": 16777215,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 3349510,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true
+		},
+		{
+			"uuid": "63CB7034-A501-4FF6-A782-9D553106DF7B",
+			"type": "MeshStandardMaterial",
+			"color": 16777215,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 12942629,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true
+		},
+		{
+			"uuid": "8639603E-E1DC-4DC4-8ECA-8FF5EC235863",
+			"type": "MeshStandardMaterial",
+			"color": 16777215,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 13797141,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true
+		},
+		{
+			"uuid": "9A284F08-368A-4284-A54B-9ECA1F396BD7",
+			"type": "MeshStandardMaterial",
+			"color": 16777215,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 15252567,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true
+		},
+		{
+			"uuid": "92983A87-4AC8-4F4B-8E55-759FE92F1D9B",
+			"type": "MeshStandardMaterial",
+			"color": 15723501,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 16250871,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true
+		},
+		{
+			"uuid": "5AED4471-1D76-464E-B061-55B685BB07A8",
+			"type": "MeshStandardMaterial",
+			"color": 12699086,
+			"roughness": 0.26,
+			"metalness": 0.5,
+			"emissive": 15724019,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true
+		}],
+	"object": {
+		"uuid": "727C5000-FB30-44CA-8147-5D4414938702",
+		"type": "Group",
+		"name": "Group",
+		"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,-0.011093,0,0,1],
+		"children": [
+			{
+				"uuid": "4FCC4923-54B4-4FA2-8D93-4A3528220371",
+				"type": "Mesh",
+				"name": "Sphere",
+				"matrix": [0.13665,0.083045,-0.005513,0,-0.004194,0.007263,0.005447,0,0.030772,-0.045072,0.083794,0,2.516554,2.718596,-0.023848,1],
+				"geometry": "73A1B3B8-F3E3-4871-80EA-13B8383EAC44",
+				"material": "B2C42908-5BFC-409C-A2AC-3A9E64153694"
+			},
+			{
+				"uuid": "00B82F97-9C96-4FF8-A3A5-4D0DBC0C6CB3",
+				"type": "Mesh",
+				"name": "Plane",
+				"matrix": [0.579228,0.40558,-0.707107,0,-0.579228,-0.40558,-0.707107,0,-0.573576,0.819152,-0.000001,0,1.835042,1.332031,0.01327,1],
+				"geometry": "E6188D89-9C4A-45EE-85E4-8AC73F3C733B",
+				"material": "E2110D11-08AA-4340-B0F2-1A177B1F2A94"
+			},
+			{
+				"uuid": "B885DB5C-0EA0-4621-A485-7BCF44EF2266",
+				"type": "Mesh",
+				"name": "Plane",
+				"matrix": [0.579228,0.40558,-0.707107,0,-0.579228,-0.40558,-0.707107,0,-0.573576,0.819152,-0.000001,0,1.718121,1.228071,0.005069,1],
+				"geometry": "30878305-8D93-4057-83AB-CB2427D9B171",
+				"material": "BEF1DCB1-621A-4EF6-9944-842699FF62F6"
+			},
+			{
+				"uuid": "86695231-3C31-4E46-8831-D398D1C44DF8",
+				"type": "Mesh",
+				"name": "Plane",
+				"matrix": [0.707107,-0.40558,-0.579228,0,-0.707107,-0.40558,-0.579228,0,0,0.819152,-0.573576,0,2.461885,1.2437,-0.758607,1],
+				"geometry": "30878305-8D93-4057-83AB-CB2427D9B171",
+				"material": "BEF1DCB1-621A-4EF6-9944-842699FF62F6"
+			},
+			{
+				"uuid": "1726CC67-99E1-41B5-84D4-924EB289A781",
+				"type": "Mesh",
+				"name": "Plane",
+				"matrix": [0.707107,-0.40558,-0.579228,0,-0.707107,-0.40558,-0.579228,0,0,0.819152,-0.573576,0,2.468078,1.343408,-0.619189,1],
+				"geometry": "E6188D89-9C4A-45EE-85E4-8AC73F3C733B",
+				"material": "E2110D11-08AA-4340-B0F2-1A177B1F2A94"
+			},
+			{
+				"uuid": "DC11F6FC-65F1-4993-9E6C-1B666EAA37CF",
+				"type": "Mesh",
+				"name": "Plane",
+				"matrix": [0.579228,-0.40558,-0.707107,0,-0.579228,0.40558,-0.707107,0,0.573576,0.819152,0,0,3.055091,1.369542,0.017299,1],
+				"geometry": "E6188D89-9C4A-45EE-85E4-8AC73F3C733B",
+				"material": "E2110D11-08AA-4340-B0F2-1A177B1F2A94"
+			},
+			{
+				"uuid": "87FE59A4-2370-46B3-A618-3A9F764D8EAF",
+				"type": "Mesh",
+				"name": "Plane",
+				"matrix": [0.579228,-0.40558,-0.707107,0,-0.579228,0.40558,-0.707107,0,0.573576,0.819152,0,0,3.186366,1.267618,0.009294,1],
+				"geometry": "30878305-8D93-4057-83AB-CB2427D9B171",
+				"material": "BEF1DCB1-621A-4EF6-9944-842699FF62F6"
+			},
+			{
+				"uuid": "6189B712-BDB7-4C5F-987C-3C9980D65B7D",
+				"type": "Mesh",
+				"name": "Plane",
+				"matrix": [0.707107,0.40558,-0.579228,0,-0.707107,0.40558,-0.579228,0,0,0.819152,0.573576,0,2.485107,1.335072,0.605737,1],
+				"geometry": "E6188D89-9C4A-45EE-85E4-8AC73F3C733B",
+				"material": "E2110D11-08AA-4340-B0F2-1A177B1F2A94"
+			},
+			{
+				"uuid": "A1A568A4-814D-42A1-8AFE-74539D377345",
+				"type": "Mesh",
+				"name": "Plane",
+				"matrix": [0.707107,0.40558,-0.579228,0,-0.707107,0.40558,-0.579228,0,0,0.819152,0.573576,0,2.477693,1.241556,0.728706,1],
+				"geometry": "30878305-8D93-4057-83AB-CB2427D9B171",
+				"material": "BEF1DCB1-621A-4EF6-9944-842699FF62F6"
+			},
+			{
+				"uuid": "52257CA5-1284-4E5C-9BED-FD878D674D8F",
+				"type": "Mesh",
+				"name": "Cylinder",
+				"matrix": [0.220855,0,0,0,0,0,1.02,0,0,-0.220855,0,0,2.474222,0.335753,-0.077292,1],
+				"geometry": "7DC180B8-94AF-4B75-97BC-1B8536086308",
+				"material": "EF47E495-25B1-4A55-BABB-6D76C8316040"
+			},
+			{
+				"uuid": "55CFB687-2981-4D7F-9D77-CB53AD62C722",
+				"type": "Mesh",
+				"name": "Box",
+				"matrix": [1,0,0,0,0,0.88,0,0,0,0,1,0,2.457232,0.310541,-0.075456,1],
+				"geometry": "AB89762A-69AE-4E35-8FD3-6D949A54A32B",
+				"material": "63CB7034-A501-4FF6-A782-9D553106DF7B"
+			},
+			{
+				"uuid": "A9D0FCA2-35C4-4F6C-9993-F2D82868A1CA",
+				"type": "Mesh",
+				"name": "Box",
+				"matrix": [1.891304,0,0,0,0,0.34,0,0,0,0,1.891304,0,2.476825,0.915736,0,1],
+				"geometry": "24B3FB11-0A9E-4F0E-A724-F4EACB3700A5",
+				"material": "8639603E-E1DC-4DC4-8ECA-8FF5EC235863"
+			},
+			{
+				"uuid": "78B9DF50-91BC-44AF-AB8B-52F0B5F1D825",
+				"type": "Mesh",
+				"name": "Sphere",
+				"matrix": [0.3,0,0,0,0,0.3,0,0,0,0,0.3,0,2.533129,2.386115,0,1],
+				"geometry": "465533EE-B319-48F3-ABB3-A7C142081E28",
+				"material": "9A284F08-368A-4284-A54B-9ECA1F396BD7"
+			},
+			{
+				"uuid": "0EFBB17F-7301-442C-8320-0911785FAE29",
+				"type": "Mesh",
+				"name": "Sphere",
+				"matrix": [0.727273,0,0,0,0,0.32,0,0,0,0,0.727273,0,2.487798,1.853966,0,1],
+				"geometry": "FD2C7BB7-D1F1-4133-9F63-4F86C006C9B7",
+				"material": "92983A87-4AC8-4F4B-8E55-759FE92F1D9B"
+			},
+			{
+				"uuid": "C41D1455-081B-4B55-891D-E401622CEA59",
+				"type": "Mesh",
+				"name": "Sphere",
+				"matrix": [1.06,0,0,0,0,0.42,0,0,0,0,1.06,0,2.47374,1.295561,0,1],
+				"geometry": "1B531DA4-0415-4B71-9C69-593F205053BC",
+				"material": "5AED4471-1D76-464E-B061-55B685BB07A8"
+			}]
+	}
+}

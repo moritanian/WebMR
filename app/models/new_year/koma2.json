@@ -1,0 +1,305 @@
+{
+	"metadata": {
+		"version": 4.5,
+		"type": "Object",
+		"generator": "Object3D.toJSON"
+	},
+	"geometries": [
+		{
+			"uuid": "27C156A1-9F6D-43D2-89AE-5DA6EA610DCD",
+			"type": "CylinderBufferGeometry",
+			"radiusTop": 1,
+			"radiusBottom": 1,
+			"height": 1,
+			"radialSegments": 12,
+			"heightSegments": 1,
+			"openEnded": false
+		},
+		{
+			"uuid": "4D926B5F-6C05-4748-B096-F05F06EACC11",
+			"type": "TorusBufferGeometry",
+			"radius": 0.7,
+			"tube": 0.3,
+			"radialSegments": 10,
+			"tubularSegments": 16,
+			"arc": 6.283185
+		},
+		{
+			"uuid": "1F5DC8FB-8FBB-414A-A014-DE5C8E55B188",
+			"type": "TorusBufferGeometry",
+			"radius": 1,
+			"tube": 0.4,
+			"radialSegments": 10,
+			"tubularSegments": 16,
+			"arc": 6.283185
+		},
+		{
+			"uuid": "C81AB361-D21B-4F4A-84F1-7CC9F1544EFA",
+			"type": "SphereBufferGeometry",
+			"radius": 1,
+			"widthSegments": 16,
+			"heightSegments": 16,
+			"phiStart": 0,
+			"phiLength": 6.283185,
+			"thetaStart": 0,
+			"thetaLength": 3.141593
+		},
+		{
+			"uuid": "6E56AE9F-A514-43F8-B861-DE729A7B80AA",
+			"type": "CylinderBufferGeometry",
+			"radiusTop": 1,
+			"radiusBottom": 1,
+			"height": 1,
+			"radialSegments": 24,
+			"heightSegments": 1,
+			"openEnded": false
+		},
+		{
+			"uuid": "9E3B0824-F763-4AA7-939D-F96BE2D6562B",
+			"type": "CylinderBufferGeometry",
+			"radiusTop": 1,
+			"radiusBottom": 1,
+			"height": 1,
+			"radialSegments": 24,
+			"heightSegments": 1,
+			"openEnded": false
+		},
+		{
+			"uuid": "7D4AE8FD-6FAD-40A2-957E-51EE37C1A26F",
+			"type": "CylinderBufferGeometry",
+			"radiusTop": 1,
+			"radiusBottom": 1,
+			"height": 1,
+			"radialSegments": 24,
+			"heightSegments": 1,
+			"openEnded": false
+		},
+		{
+			"uuid": "F604BF90-2802-478D-9827-03D31F8DAD51",
+			"type": "CylinderBufferGeometry",
+			"radiusTop": 1,
+			"radiusBottom": 1,
+			"height": 1,
+			"radialSegments": 24,
+			"heightSegments": 1,
+			"openEnded": false
+		},
+		{
+			"uuid": "87CA9C14-6463-453A-8A49-D848A58B3ED3",
+			"type": "CylinderBufferGeometry",
+			"radiusTop": 1,
+			"radiusBottom": 1,
+			"height": 1,
+			"radialSegments": 24,
+			"heightSegments": 1,
+			"openEnded": false
+		},
+		{
+			"uuid": "6A40E3F5-F273-41C9-90E1-DCAE588D3793",
+			"type": "CylinderBufferGeometry",
+			"radiusTop": 1,
+			"radiusBottom": 1,
+			"height": 1,
+			"radialSegments": 24,
+			"heightSegments": 1,
+			"openEnded": false
+		}],
+	"materials": [
+		{
+			"uuid": "0C1BEBED-176A-4A7F-8989-4D0945A50128",
+			"type": "MeshStandardMaterial",
+			"color": 16777215,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 13213456,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true
+		},
+		{
+			"uuid": "88B25495-A235-40B7-9CD7-04575D977870",
+			"type": "MeshStandardMaterial",
+			"color": 16777215,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 10390544,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true
+		},
+		{
+			"uuid": "2BE48026-3BC7-4A4D-8DA6-2C9EAA62F836",
+			"type": "MeshStandardMaterial",
+			"color": 16777215,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 10523914,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true
+		},
+		{
+			"uuid": "6F2C653F-93B1-460B-832D-B404237C6110",
+			"type": "MeshStandardMaterial",
+			"color": 16777215,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 11635984,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true
+		},
+		{
+			"uuid": "002299FD-DC62-40C5-8B0B-29CD9B787553",
+			"type": "MeshStandardMaterial",
+			"color": 16777215,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 15947373,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true
+		},
+		{
+			"uuid": "BA229063-79D8-4ABA-84EB-D9338A649FAD",
+			"type": "MeshStandardMaterial",
+			"color": 16777215,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 9731086,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true
+		},
+		{
+			"uuid": "8A6890B1-C5DA-44A6-B877-83292ED78D16",
+			"type": "MeshStandardMaterial",
+			"color": 16777215,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 15132390,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true
+		},
+		{
+			"uuid": "D953DA85-8D25-4D0E-84B8-5E6048EE1B6C",
+			"type": "MeshStandardMaterial",
+			"color": 16777215,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 15630467,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true
+		},
+		{
+			"uuid": "54B630EE-53AF-47DB-9735-1C41694B2C2B",
+			"type": "MeshStandardMaterial",
+			"color": 16777215,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 9073939,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true
+		},
+		{
+			"uuid": "70659B7E-4B30-431F-B807-AB5BCD20A695",
+			"type": "MeshStandardMaterial",
+			"color": 16777215,
+			"roughness": 0.5,
+			"metalness": 0.5,
+			"emissive": 16185078,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true
+		}],
+	"object": {
+		"uuid": "7C6E4561-5027-41C9-80D0-CEAFC9B810A6",
+		"type": "Group",
+		"name": "Koma2",
+		"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,-0.002194,0,1],
+		"children": [
+			{
+				"uuid": "B3E5C772-B9BF-40E5-B02C-E0CF0F3A8800",
+				"type": "Mesh",
+				"name": "Cylinder",
+				"matrix": [0.031355,0,0,0,0,1,0,0,0,0,0.031355,0,0,0.500628,0,1],
+				"geometry": "27C156A1-9F6D-43D2-89AE-5DA6EA610DCD",
+				"material": "0C1BEBED-176A-4A7F-8989-4D0945A50128"
+			},
+			{
+				"uuid": "9A1A62A5-83CC-42BC-8942-E8C437C1FAEC",
+				"type": "Mesh",
+				"name": "Torus",
+				"matrix": [0.58,0,0,0,0,0,0.58,0,0,-0.58,0,0,0,0.60232,0,1],
+				"geometry": "4D926B5F-6C05-4748-B096-F05F06EACC11",
+				"material": "88B25495-A235-40B7-9CD7-04575D977870"
+			},
+			{
+				"uuid": "D946EB01-BB2F-46F5-AC0C-E4B72841471C",
+				"type": "Mesh",
+				"name": "Torus",
+				"matrix": [0.3,0,0,0,0,0,0.3,0,0,-0.3,0,0,0,0.39929,0,1],
+				"geometry": "1F5DC8FB-8FBB-414A-A014-DE5C8E55B188",
+				"material": "2BE48026-3BC7-4A4D-8DA6-2C9EAA62F836"
+			},
+			{
+				"uuid": "F63A63EB-DB49-4EC6-A42E-8D6C85DF0C62",
+				"type": "Mesh",
+				"name": "Sphere",
+				"matrix": [0.22,0,0,0,0,0.22,0,0,0,0,0.22,0,0,0.350488,0,1],
+				"geometry": "C81AB361-D21B-4F4A-84F1-7CC9F1544EFA",
+				"material": "6F2C653F-93B1-460B-832D-B404237C6110"
+			},
+			{
+				"uuid": "EF85635B-D2A8-465C-A3BC-C089F49DA031",
+				"type": "Mesh",
+				"name": "Cylinder",
+				"matrix": [0.825,0,0,0,0,0.15,0,0,0,0,0.825,0,0,0.68657,0,1],
+				"geometry": "6E56AE9F-A514-43F8-B861-DE729A7B80AA",
+				"material": "002299FD-DC62-40C5-8B0B-29CD9B787553"
+			},
+			{
+				"uuid": "F962C422-80CC-412C-A389-73DA81205DE7",
+				"type": "Mesh",
+				"name": "Cylinder",
+				"matrix": [0.651429,0,0,0,0,0.12,0,0,0,0,0.651429,0,0,0.705153,0,1],
+				"geometry": "9E3B0824-F763-4AA7-939D-F96BE2D6562B",
+				"material": "BA229063-79D8-4ABA-84EB-D9338A649FAD"
+			},
+			{
+				"uuid": "F09C0A64-4BB1-42AF-B770-15AF61A86F2F",
+				"type": "Mesh",
+				"name": "Cylinder",
+				"matrix": [0.52,0,0,0,0,0.06,0,0,0,0,0.52,0,0,0.748314,0,1],
+				"geometry": "7D4AE8FD-6FAD-40A2-957E-51EE37C1A26F",
+				"material": "8A6890B1-C5DA-44A6-B877-83292ED78D16"
+			},
+			{
+				"uuid": "CDED827B-CC8D-4932-8C2A-D651461D91BC",
+				"type": "Mesh",
+				"name": "Cylinder",
+				"matrix": [0.4,0,0,0,0,0.05,0,0,0,0,0.4,0,0,0.753697,0,1],
+				"geometry": "F604BF90-2802-478D-9827-03D31F8DAD51",
+				"material": "D953DA85-8D25-4D0E-84B8-5E6048EE1B6C"
+			},
+			{
+				"uuid": "12554B0F-5FE2-4197-B202-5D24CB1D8268",
+				"type": "Mesh",
+				"name": "Cylinder",
+				"matrix": [0.271429,0,0,0,0,0.05,0,0,0,0,0.271429,0,0,0.754506,0,1],
+				"geometry": "87CA9C14-6463-453A-8A49-D848A58B3ED3",
+				"material": "54B630EE-53AF-47DB-9735-1C41694B2C2B"
+			},
+			{
+				"uuid": "51C89ACC-ABDB-4F4D-A700-9B0B16B93B32",
+				"type": "Mesh",
+				"name": "Cylinder",
+				"matrix": [0.130909,0,0,0,0,0.03,0,0,0,0,0.130909,0,0,0.762753,0,1],
+				"geometry": "6A40E3F5-F273-41C9-90E1-DCAE588D3793",
+				"material": "70659B7E-4B30-431F-B807-AB5BCD20A695"
+			}]
+	}
+}

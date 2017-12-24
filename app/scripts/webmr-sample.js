@@ -33,7 +33,25 @@ $(function() {
 
   });
 
- function screenShot(){
+  /*
+    setup UI
+  */
+  function initUI(effectTheme){
+    
+    // character button is hide if selectable models donot exist.
+    if(Object.keys(effectTheme.getModels()).length < 2){
+      $("#character-button").hide();
+    }
+    // model info
+    $("#model-info").html(effectTheme.getModelInfo());
+
+  }
+
+
+  /*
+    screenshot
+  */
+  function screenShot(){
     var context = renderer.domElement.getContext("experimental-webgl", {preserveDrawingBuffer: true});
     var url = renderer.domElement.toDataURL('image/png');
     var d = new Date();
@@ -56,13 +74,17 @@ $(function() {
     a.dispatchEvent(e);
   }
 
-  // reset button
+  /* 
+    reset button
+  */
   var resetButton = document.getElementById("reset-button");
   resetButton.addEventListener("click", function(){
     WebMR.resetControls();
   });
 
-  // character button
+  /*
+     character button
+  */
   var characterButton = document.getElementById("character-button");
   var characterDialog = document.getElementById("character-dialog");
   characterButton.addEventListener("click", function(){
@@ -238,8 +260,69 @@ $(function() {
 
     };
 
+    function loadMMD(mmdModel){
+
+      if(mmdModel.vmdFiles && mmdModel.vmdFiles.length > 0) {
+
+
+        loader.load( mmdModel.modelFile, mmdModel.vmdFiles, function(mesh){
+
+          onLoad(mesh, mmdModel);
+
+        }, onProgress, onError );
+
+
+      } else {
+
+        loader.loadModel( mmdModel.modelFile, function(mesh){
+          onLoad(mesh, mmdModel);
+        }, onProgress, onError );
+
+      }
+
+     
+    }
+
+    function loadObj(model){
+      
+      new THREE.OBJLoader().load( model.modelFile, 
+        // called when resource is loaded
+        function ( object ) {
+
+          onLoad(object, model);
+          
+        },
+        // called when loading is in progresses
+        function ( xhr ) {
+
+          console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+        },
+        // called when loading has errors
+        function ( error ) {
+
+          console.log( 'An error happened' );
+
+        } 
+      );
+    }
+
+    function loadJSON(model){
+      let loader = new Loader();
+
+      loader.loadFile(model.modelFile).then((obj)=>{
+
+        onLoad(obj, model);
+
+      });
+    }
+
     
-    effectTheme = new ChristmasTheme(scene);
+    //effectTheme = new ChristmasTheme(scene);
+    //effectTheme = new NormalTheme(scene);
+    effectTheme = new NewyearTheme(scene);
+
+    initUI(effectTheme);
 
     let models = effectTheme.getModels();
 
@@ -260,66 +343,19 @@ $(function() {
 
         case 'obj':
           loadObj(model);
+          break;
+
+        case 'json':
+          loadJSON(model);
+          break;
 
       }
 
-      function loadMMD(mmdModel){
+      if(model.imageUrl){
 
-        if(mmdModel.vmdFiles && mmdModel.vmdFiles.length > 0) {
+        addCharacterSelectDialog(model);
 
-
-          loader.load( mmdModel.modelFile, mmdModel.vmdFiles ,function(mesh){
-
-            onLoad(mesh, mmdModel);
-
-          }, onProgress, onError );
-
-
-        } else {
-
-          loader.loadModel( mmdModel.modelFile, function(mesh){
-            onLoad(mesh, mmdModel);
-          }, onProgress, onError );
-
-        }
-
-        if(model.imageUrl){
-
-          addCharacterSelectDialog(mmdModel);
-
-        }
       }
-
-      function loadObj(model){
-        
-        new THREE.OBJLoader().load( model.modelFile, 
-          // called when resource is loaded
-          function ( object ) {
-
-            onLoad(object, model);
-            
-          },
-          // called when loading is in progresses
-          function ( xhr ) {
-
-            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
-          },
-          // called when loading has errors
-          function ( error ) {
-
-            console.log( 'An error happened' );
-
-          } 
-        );
-
-        if(model.imageUrl){
-
-          addCharacterSelectDialog(mmdModel);
-
-        }
-      }
-
 
     }
 

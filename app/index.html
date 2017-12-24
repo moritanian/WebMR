@@ -98,8 +98,11 @@
     <!-- build:js scripts/main.min.js -->
     <script src="scripts/main.js"></script>
     <script src='scripts/three/WebVRSetting.js'></script>
+    <script src='scripts/three/loader.js'></script>
     <script src="scripts/webmr.js"></script>
     <script src="scripts/effect-theme/christmas-theme.js"></script>
+    <script src="scripts/effect-theme/newyear-theme.js"></script>
+    <script src="scripts/effect-theme/normal-theme.js"></script>
     <script src="scripts/webmr-sample.js"></script>
     <!-- endbuild -->
 
@@ -115,11 +118,9 @@
     <!-- Built with love using Web Starter Kit -->
 
     <div class="header">
-        <div class="model-info">tree model from 
-            <a href="https://resources.blogscopia.com/2015/04/15/christmas-tree/"
-                target="_blank">blogscopia </a> </div>
+        <div id="model-info"></div>
     </div>
-    
+
     <div class="character-dialog" id="character-dialog">
         <div id="character-dialog-back"></div>
         <div class="characters-container" id="characters-container">
@@ -127,7 +128,7 @@
     </div>
 
     <div class="footer-buttons">
-        <div id="take-button" 
+        <div id="take-button"
             class="camera-icon footer-button">
             <div class="layer-1 no-1">
                 <div class="layer-2 no-1">
