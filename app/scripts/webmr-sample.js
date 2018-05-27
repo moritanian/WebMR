@@ -12,18 +12,20 @@ $(function() {
   let effectTheme;
 
   // webVR Enter button
+  /*
   var webvrEnterButton = document.createElement("button");
   webvrEnterButton.id = "vr-enter-button";
   webvrEnterButton.classList.add("vr-enter-button");
   webvrEnterButton.addEventListener("click", function(){
     WebVRSetting.init(renderer, camera, scene, "./../images/controllers/", {
-      useStereoVR: true,
-      useHeadsetVR: false
+     // useStereoVR: true,
+      //useHeadsetVR: false
     });
     WebMR.setFullScreen(container);
   });
 
   document.body.appendChild(webvrEnterButton);
+  */
 
   // screen shot button
   var takeButton = document.getElementById("take-button");
@@ -319,8 +321,8 @@ $(function() {
 
     
     //effectTheme = new ChristmasTheme(scene);
-    //effectTheme = new NormalTheme(scene);
-    effectTheme = new NewyearTheme(scene);
+    effectTheme = new NormalTheme(scene);
+    //effectTheme = new NewyearTheme(scene);
 
     initUI(effectTheme);
 
@@ -430,6 +432,10 @@ $(function() {
   }
 
   initScene(true);
+  WebVRSetting.init(renderer, camera, scene, "./../images/controllers/", {
+      useStereoVR: true,
+      useHeadsetVR: false
+    });
 
   WebMR.start(renderer, camera, scene, container, animate, WebMR.CAMERA_MODE_DEVICECAM);
 

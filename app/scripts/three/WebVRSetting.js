@@ -1,110 +1,105 @@
 /*
-	VR Setup class
+  VR Setup class
 
-	TODO: domベースでコントロールパネルだす
-		viveコントローラで姿勢
+  TODO: domベースでコントロールパネルだす
+    viveコントローラで姿勢
 
-	- html-gl
-	html2canvas使っている
+  - html-gl
+  html2canvas使っている
 
-	- dreamgl これ使えばwebVRのUIできるかも
-	https://github.com/dreemproject/dreemgl
+  - dreamgl これ使えばwebVRのUIできるかも
+  https://github.com/dreemproject/dreemgl
 
-	- 以下で3Dモデル入手場所書かれている
-	https://aframe.io/docs/0.5.0/introduction/models.html
-	skech fab - download できるものはCreative Commons License
+  - 以下で3Dモデル入手場所書かれている
+  https://aframe.io/docs/0.5.0/introduction/models.html
+  skech fab - download できるものはCreative Commons License
 
-	- websocket real time communication
-	https://deepstream.io./
-	- cannon.js
-	http://qiita.com/o_tyazuke/items/3481ef1a31b2a4888f5d
-	- google experiments
-	http://www.moguravr.com/google-webvr-experiments/
+  - websocket real time communication
+  https://deepstream.io./
+  - cannon.js
+  http://qiita.com/o_tyazuke/items/3481ef1a31b2a4888f5d
+  - google experiments
+  http://www.moguravr.com/google-webvr-experiments/
 
 */
 var WebVRSetting = {
   init: function(renderer, camera, scene, path, options){
+    
     var Instance = this;
     Object.assign(this, THREE.EventDispatcher.prototype);
 
     options = options || {};
-    this.useHeadsetVR = options.useHeadsetVR === null ||
-      options.useHeadsetVR === true;
-
-    this.useStereoVR = options.useStereoVR === true;
-    if ( !this.useHeadsetVR || WEBVR.isAvailable() === false ) {
+    this.useHeadsetVR = options.useHeadsetVR == null || options.useHeadsetVR  ? true : false;
+    this.useStereoVR = options.useStereoVR ? true : false;
+    if ( !this.useHeadsetVR || WebVRSetting.isAvailable() === false ) {
       this.useHeadsetVR = false;
-      if (options.useStereoVR){
+       
+      let enterButton = this.createEnterVRButton(function(){
+        WebMR.setFullScreen(renderer.domElement);
+      });
+      document.body.appendChild(enterButton);
+
+      if(options.useStereoVR){
         console.log("useStereoVR");
         this.effect = new THREE.StereoEffect( renderer );
         this.effect.setSize( window.innerWidth, window.innerHeight );
+        this.effect.animate = function(func){
+          let loop = function(){
+            requestAnimationFrame( loop );
+            func();
+          };
+          loop();
+        };
+
         return true;
       }
       this.effect = renderer;
+
+     
+
       return false;
+
     }
 
-    this.controls = new THREE.VRControls( camera );
-    this.controls.standing = true;
-
     this.controller1 = new THREE.ViveController( 0 );
-    this.controller1.standingMatrix = this.controls.getStandingMatrix();
+    this.controller1.standingMatrix = renderer.vr.getStandingMatrix(); //this.controls.getStandingMatrix();
     this.controller1.addEventListener( 'triggerdown', function(event){
-      Instance.dispatchEvent({
-        type: "triggerchange",
-        trigger: "down",
-        controller: Instance.controller1,
-        triggerEvent: event
-      });
+      Instance.dispatchEvent({type: "triggerchange", trigger: "down", controller: Instance.controller1, triggerEvent: event});
     });
     this.controller1.addEventListener( 'triggerup', function(event){
-      Instance.dispatchEvent({
-        type: "triggerchange",
-        trigger: "up",
-        controller: Instance.controller1,
-        triggerEvent: event
-      });
+      Instance.dispatchEvent({type: "triggerchange", trigger: "up", controller: Instance.controller1, triggerEvent: event});
     });
     scene.add( this.controller1 );
 
     this.controller2 = new THREE.ViveController( 1 );
-    this.controller2.standingMatrix = this.controls.getStandingMatrix();
+    this.controller2.standingMatrix = renderer.vr.getStandingMatrix(); // this.controls.getStandingMatrix();
     this.controller2.addEventListener( 'triggerdown', function(event){
-      Instance.dispatchEvent({
-        type: "triggerchange",
-        trigger: "down",
-        controller: Instance.controller2,
-        triggerEvent: event
-      });
+      Instance.dispatchEvent({type: "triggerchange", trigger: "down", controller: Instance.controller2, triggerEvent: event});
     });
     this.controller2.addEventListener( 'triggerup', function(event){
-      Instance.dispatchEvent({
-        type: "triggerchange",
-        trigger: "up",
-        controller: Instance.controller2,
-        triggerEvent: event
-      });
+      Instance.dispatchEvent({type: "triggerchange", trigger: "up", controller: Instance.controller2, triggerEvent: event});
     });
     scene.add( this.controller2 );
 
     var loader = new THREE.OBJLoader();
     loader.setPath( 'https://threejs.org/examples/models/obj/vive-controller/' );
+    loader.load( 'vr_controller_vive_1_5.obj', function ( object ) {
 
-    loader.load( 'vr_controller_vive_1_5.obj', function (object ) {
       var loader = new THREE.TextureLoader();
       loader.setPath( path );
 
-      var controller = object.children[0];
+      var controller = object.children[ 0 ];
       controller.material.map = loader.load( 'onepointfive_texture.png' );
       controller.material.specularMap = loader.load( 'onepointfive_spec.png' );
 
       Instance.controller1.add( object.clone() );
       Instance.controller2.add( object.clone() );
-    });
+
+    } );
 
     var geometry = new THREE.Geometry();
     geometry.vertices.push( new THREE.Vector3( 0, 0, 0 ) );
-    geometry.vertices.push( new THREE.Vector3( 0, 0, -1 ) );
+    geometry.vertices.push( new THREE.Vector3( 0, 0, - 1 ) );
 
     var line = new THREE.Line( geometry );
     line.name = 'line';
@@ -115,23 +110,19 @@ var WebVRSetting = {
 
     this.raycaster = new THREE.Raycaster();
 
-    this.effect = new THREE.VREffect( renderer );
+    this.effect = renderer;
 
-    WEBVR.getVRDisplay( function( display ) {
-      let button = WEBVR.getButton( display, renderer.domElement );
-      button.style.right = "10px";
-      button.style.left = "auto";
-      document.body.appendChild(button );
-    });
+    this.effect.vr.enabled = true;
+
+    document.body.appendChild( WEBVR.createButton( renderer ) );
 
     window.addEventListener( 'resize', onWindowResize, false );
-
+    
     this.intersected = [];
 
     this.tempMatrix = new THREE.Matrix4();
 
     this.intersectableObjects = new THREE.Group();
-
     // シーンに追加する必要ある？
     scene.add(this.intersectableObjects);
 
@@ -148,8 +139,17 @@ var WebVRSetting = {
 
   },
 
+  createEnterVRButton: function(func){
+      var webvrEnterButton = document.createElement("button");
+      webvrEnterButton.id = "vr-enter-button";
+      webvrEnterButton.classList.add("vr-enter-button");
+      webvrEnterButton.addEventListener("click", func);
+      return webvrEnterButton;
+  },
+
+
   setIntersectableObjects: function(objects){
-    for (let i = 0; i < objects.length; i++){
+    for(let i=0; i<objects.length; i++){
       this.intersectableObjects.add(objects[i]);
     }
   },
@@ -159,29 +159,25 @@ var WebVRSetting = {
     while ( this.intersected.length ) {
 
       var object = this.intersected.pop();
-
       object.material.emissive.r = 0;
 
     }
 
   },
 
-	// コントローラに指示されているオブジェクト取得
+  // コントローラに指示されているオブジェクト取得
   getIntersections: function( controller ) {
 
     this.tempMatrix.identity().extractRotation( controller.matrixWorld );
 
     this.raycaster.ray.origin.setFromMatrixPosition( controller.matrixWorld );
-    this.raycaster.ray.direction.set( 0, 0, -1 )
-      .applyMatrix4( this.tempMatrix );
+    this.raycaster.ray.direction.set( 0, 0, -1 ).applyMatrix4( this.tempMatrix );
 
-    return this.raycaster.intersectObjects(
-      this.intersectableObjects.children
-    );
+    return this.raycaster.intersectObjects( this.intersectableObjects.children );
 
   },
 
-	// 支持しているオブジェクトに向かってビーム
+  // 支持しているオブジェクトに向かってビーム
   intersectObjects: function( controller ) {
 
     // Do not highlight when already selected
@@ -193,7 +189,7 @@ var WebVRSetting = {
 
     if ( intersections.length > 0 ) {
 
-      var intersection = intersections[0];
+      var intersection = intersections[ 0 ];
 
       var object = intersection.object;
       object.material.emissive.r = 1;
@@ -210,21 +206,21 @@ var WebVRSetting = {
   },
 
   attachIntersectedObject: function(controller){
-
+    
     var intersections = this.getIntersections(controller);
 
     if ( intersections.length > 0 ) {
 
-      var intersection = intersections[0];
+      var intersection = intersections[ 0 ];
 
       var object = intersection.object;
 
       this.attachObject(controller, object);
     }
-
+    
   },
 
-  attachObject: function(controller, object){
+  attachObject : function(controller, object){
     this.tempMatrix.getInverse( controller.matrixWorld );
 
     object.matrix.premultiply( this.tempMatrix );
@@ -241,10 +237,7 @@ var WebVRSetting = {
 
       var object = controller.userData.selected;
       object.matrix.premultiply( controller.matrixWorld );
-      object.matrix.decompose(
-        object.position,
-        object.quaternion,
-        object.scale );
+      object.matrix.decompose( object.position, object.quaternion, object.scale );
       object.material.emissive.b = 0;
       this.intersectableObjects.add( object );
 
@@ -252,21 +245,19 @@ var WebVRSetting = {
 
     }
 
+
   },
 
   // should be called in animate()
   startLoop: function(scene, camera, animate){
-
+    
     var Instance = this;
-    var animateFunc;
-    if (Instance.useHeadsetVR){
+    var animateFunc; 
+    if(Instance.useHeadsetVR){
       animateFunc = function(){
-        Instance.effect.requestAnimationFrame(animateFunc);
         animate();
         Instance.controller1.update();
         Instance.controller2.update();
-
-        Instance.controls.update();
 
         Instance.cleanIntersected();
 
@@ -275,20 +266,24 @@ var WebVRSetting = {
         Instance.effect.render( scene, camera );
 
       };
-    } else if (Instance.useStereoVR){
+    } else if(Instance.useStereoVR){
       animateFunc = function(){
-        requestAnimationFrame( animateFunc );
         animate();
         Instance.effect.render(scene, camera);
       };
     } else {
       animateFunc = function(){
-        requestAnimationFrame( animateFunc );
         animate();
         Instance.effect.render(scene, camera);
       };
     }
     animateFunc();
+    this.effect.animate(animateFunc);
     return true;
+  },
+
+  isAvailable: function(){
+    return 'getVRDisplays' in navigator;
   }
+
 };

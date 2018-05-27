@@ -22,97 +22,156 @@ var WebMR = (function(){
   // camera control mode
   WebMR.CAMERA_MODE_ORIENTATION = Symbol("CAMERA_MODE_ORIENTATION");
   WebMR.CAMERA_MODE_DEVICECAM = Symbol("CAMERA_MODE_DEVICECAM");
+  WebMR.CAMERA_MODE_REMOTESTREAM = Symbol("CAMERA_MODE_REMOTESTREAM");
 
-  WebMR.getWebcamTexture = function(){
+  WebMR.createWebcamTexture = function(){
 
     return new Promise(function(resolve, reject){
 
       var tex;
-      video = document.createElement('video');
-      video.autoplay = 'autoplay';
+     
+      createVideo();
+
       camController = new camera_controller(video);
       camController.startCamera();
-
-      videoImage = document.createElement('canvas');
-      videoImageContext = videoImage.getContext('2d');
-      videoImageContext.fillStyle = '#008800';
-      videoImageContext.fillRect(0, 0, videoImage.width, videoImage.height);
 
       function loadedDataFunc(){
         video.removeEventListener('loadeddata', loadedDataFunc);
         resolve(_createTexture());
       }
-
       camController.addLoadedEventListener(loadedDataFunc);
       //video.addEventListener("loadeddata", loadedDataFunc);
 
     });
 
-    function _createTexture(){
+  };
 
-      videoWidth = video.videoWidth;
-      videoHeight = video.videoHeight;
+  WebMR.createStreamVideoTexture = function(stream){
+     
+ 
 
-      videoImageContext.fillRect(0, 0, videoWidth, videoHeight);
-      videoImage.width = videoWidth;
-      videoImage.height = videoHeight;
+    return new Promise(function(resolve, reject){
+      createVideo();
 
-      videoTexture = new THREE.Texture(videoImage);
-      videoTexture.minFilter = THREE.LinearFilter;
-      videoTexture.magFilter = THREE.LinearFilter;
+      if ('srcObject' in video) {
+        video.srcObject = stream;
+      }
+      else {
+        video.src = window.URL.createObjectURL(stream);
+      }
+      console.log(stream);
+      video.play();
+      video.volume = 1.0;
 
-      return new THREE.MeshBasicMaterial({map: videoTexture, color: 0xFFFFFF});
+      video.onloadeddata = function(){
+        
+        console.log("loadeddata");
 
-    }
+        videoImage = document.createElement('canvas');
+        videoImageContext = videoImage.getContext('2d');
+        videoImageContext.fillStyle = '#008800';
+        videoImageContext.fillRect(0, 0, videoImage.width, videoImage.height);
+           
+        resolve( _createTexture());
+      };
+
+    });
 
   };
 
-  WebMR.createCameraPlane = function(size, camera){
+  function _createTexture(){
 
+    videoWidth = video.videoWidth;
+    videoHeight = video.videoHeight;
+/*
+    console.log("videoHeight");
+    console.log(video);
+    console.log(videoHeight);
+    document.body.append(video);
+    document.body.append(videoImage);
+*/
+   
+
+    videoImageContext.fillRect(0, 0, videoWidth, videoHeight);
+    videoImage.width = videoWidth;
+    videoImage.height = videoHeight;
+
+    videoTexture = new THREE.Texture(videoImage);
+    videoTexture.minFilter = THREE.LinearFilter;
+    videoTexture.magFilter = THREE.LinearFilter;
+
+    return new THREE.MeshBasicMaterial({map: videoTexture, color: 0xFFFFFF});
+
+  }
+
+
+  function createVideo(){
+    video = document.createElement('video');
+    video.autoplay = 'autoplay';
+    videoImage = document.createElement('canvas');
+    videoImageContext = videoImage.getContext('2d');
+    videoImageContext.fillStyle = '#008800';
+    videoImageContext.fillRect(0, 0, videoImage.width, videoImage.height);
+  
+  }
+
+  WebMR.createCameraPlane = function(size, camera){
     return new Promise(function(resolve, reject){
 
-      WebMR.getWebcamTexture()
+      WebMR.createWebcamTexture()
         .then(function(tex){
 
         console.log("loaded webcam texture");
-        console.log(size * videoHeight / videoWidth);
-
-        let geometry = new THREE.PlaneGeometry(size, size * videoHeight / videoWidth);
-
-        let mesh = new THREE.Mesh(geometry, tex);
-
-        var forward = new THREE.Vector3(0, 0, - 1.0);
-
-        forward.applyQuaternion(camera.quaternion);
-
-        forward.multiplyScalar(20.0);
-
-        forward.add(camera.position);
-
-        //var q = new THREE.Quaternion();
-
-        //q.setFromEuler(new THREE.Euler(0, Math.PI, 0 ,'YXZ'));
-
-        //mesh.applyQuaternion(q);
-
-        mesh.position.copy(forward);
-
-        mesh.applyQuaternion(camera.quaternion);
-
-        console.log(camera.position);
-        console.log(mesh.position);
-
-        camera.add(mesh);
-
-        cameraPlane = mesh;
-
-        resolve(mesh);
+       
+        resolve(createVideoPlane(size, camera, tex));
 
       });
     });
 
-
   };
+
+  WebMR.createStreamVideoPlane = function(size, camera, stream){
+    WebMR.createStreamVideoTexture(stream).
+      then(function(tex){
+        createVideoPlane(size, camera, tex);
+      });
+  };
+
+  function createVideoPlane(size, camera, tex){
+     console.log(size * videoHeight / videoWidth);
+
+      let geometry = new THREE.PlaneGeometry(size, size * videoHeight / videoWidth);
+
+      let mesh = new THREE.Mesh(geometry, tex);
+
+      var forward = new THREE.Vector3(0, 0, - 1.0);
+
+      forward.applyQuaternion(camera.quaternion);
+
+      forward.multiplyScalar(20.0);
+
+      forward.add(camera.position);
+
+      //var q = new THREE.Quaternion();
+
+      //q.setFromEuler(new THREE.Euler(0, Math.PI, 0 ,'YXZ'));
+
+      //mesh.applyQuaternion(q);
+
+      mesh.position.copy(forward);
+
+      mesh.applyQuaternion(camera.quaternion);
+
+      console.log(camera.position);
+      console.log(mesh.position);
+
+      camera.add(mesh);
+
+      cameraPlane = mesh;
+
+      return mesh;
+
+  }
 
   WebMR.resizeCameraPlane = function(size, camera) {
 
@@ -124,12 +183,12 @@ var WebMR = (function(){
   WebMR.start = function(renderer, camera, scene, container, animate, cameraMode){
 
     window.addEventListener('resize', resize, false);
-
+/*
     WebVRSetting.init(renderer, camera, scene, "./../images/controllers/", {
-      useStereoVR: false,
+      //useStereoVR: false,
       useHeadsetVR: false
     });
-
+*/
     if( cameraMode === WebMR.CAMERA_MODE_DEVICECAM) {
 
       WebMR.createCameraPlane(10, camera).then(function(){
@@ -140,7 +199,8 @@ var WebMR = (function(){
 
       });
 
-    } else {
+
+    } else if(cameraMode == WebMR.CAMERA_MODE_ORIENTATION){
 
       this.createCameraPlane(10, camera);
 
@@ -180,11 +240,11 @@ var WebMR = (function(){
 
     WebVRSetting.startLoop(scene, camera, function(){
 
-      if(cameraMode === WebMR.CAMERA_MODE_ORIENTATION){
-
-        videoImageContext.drawImage(video, 0, 0,
-          videoImage.width, videoImage.height);
-
+      if(cameraMode === WebMR.CAMERA_MODE_ORIENTATION || cameraMode === WebMR.CAMERA_MODE_REMOTESTREAM){
+        if(videoImageContext){
+          videoImageContext.drawImage(video, 0, 0,
+            videoImage.width, videoImage.height); 
+        }
       }
 
 
